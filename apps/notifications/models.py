@@ -1,13 +1,10 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-from transactions.models import Transaction
+from django.conf import settings
+from apps.transactions.models import Transaction
 
-
-User = get_user_model
-# Create your models here.
 
 class Notification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name= 'user_notification')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name= 'user_notification')
     transaction = models.ForeignKey(Transaction,on_delete=models.CASCADE,related_name='transaction_notification')
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
